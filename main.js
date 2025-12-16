@@ -915,19 +915,23 @@ const initPrebookForm = () => {
 
 // --- Initialization ---
 window.addEventListener('load', () => {
-    // Vanilla JS inits
+    // Critical: Hero video loads first for above-fold content
+    initHeroVideo()
+
+    // Vanilla JS inits - immediate
     initMobileMenu()
-    initMatrixRain()
     initSpotlightCards()
     initPrebookForm()
 
-    // Three.js features
-    initShaderAnimation()
-    init3DModel()
-
-    // GSAP features
+    // GSAP features - immediate for hero animation
     initHyperText()
 
-    // Performance features
-    initHeroVideo()
+    // 3D Model - only on button click anyway
+    init3DModel()
+
+    // Deferred: Heavy shader and matrix rain (not visible immediately)
+    setTimeout(() => {
+        initShaderAnimation()
+        initMatrixRain()
+    }, 1500)
 })
